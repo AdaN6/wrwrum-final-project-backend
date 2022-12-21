@@ -1,8 +1,6 @@
 const express = require('express');
 const newsRouter = express.Router()
 
-
-
 let Parser = require("rss-parser");
 let parser = new Parser();
 
