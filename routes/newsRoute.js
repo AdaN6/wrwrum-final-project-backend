@@ -5,7 +5,7 @@ let Parser = require("rss-parser");
 let parser = new Parser();
 
 newsRouter.get("/", (req, res) => {
- res.send("hey")
+ res.send("hey this is news")
 })
 
 newsRouter.get("/api", async (req, res) => {
