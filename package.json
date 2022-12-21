@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "devStart": "nodemon index.js"
+    "devStart": "nodemon index.js"
   },
   "keywords": [],
   "author": "Ada and Wiktor",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "rss-parser": "^3.12.0"
   }
 }
