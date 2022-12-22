@@ -10,5 +10,7 @@ This project is separated into two repositories.
 [Frontend](https://github.com/WiktorSzymczyk/final-project-frontend) &
 [Backend](https://github.com/AdaN6/wrwrum-final-project-backend) (current)
 
+# Sypnosis 
+
 
 
