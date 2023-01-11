@@ -9,13 +9,14 @@ app.use(cors());
 
 const port = process.env.PORT || 6000;
 
-// //connect to mongo
-// const connectToDB = require("./DB/mongoConnection");
-// connectToDB();
+// --> connect to mongo
+const connectToDB = require("./DB/mongoConnection");
+
 
 
 const newsRoutes = require("./routes/newsRoute")
 app.use("/news", newsRoutes);
 
-
-app.listen(port, () => console.log(`Server started on port ${port}`))
+connectToDB().then(() => {
+ app.listen(port, () => console.log(`Server started on port ${port}`));
+})
