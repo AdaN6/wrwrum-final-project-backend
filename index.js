@@ -9,9 +9,9 @@ app.use(cors());
 
 const port = process.env.PORT || 6000;
 
-//connect to mongo
-const connectToDB = require("./DB/mongoConnection");
-connectToDB();
+// //connect to mongo
+// const connectToDB = require("./DB/mongoConnection");
+// connectToDB();
 
 
 const newsRoutes = require("./routes/newsRoute")
