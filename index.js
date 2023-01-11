@@ -2,12 +2,16 @@ const express = require ('express');
 const app = express();
 require("dotenv").config();
 
+
 const cors = require("cors");
 app.use(cors());
 
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 6000;
 
+//connect to mongo
+const connectToDB = require("./DB/mongoConnection");
+connectToDB();
 
 
 const newsRoutes = require("./routes/newsRoute")
