@@ -10,14 +10,14 @@ const middlewares = [
     cors()];
 app.use(middlewares);
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 
 // --> connect to mongo
-const connectToDB = require("./DB/mongoConnection");
+// const connectToDB = require("./DB/mongoConnection");
 
 const newsRoutes = require("./routes/newsRoute");
 app.use("/news", newsRoutes);
 
-connectToDB().then(() => {
+
   app.listen(port, () => console.log(`Server started on port ${port}`));
-});
+

@@ -6,4 +6,5 @@ const connectToDB = async () => {
       () => console.log("Connected to MongoDB");
 }
 
+
 module.exports = connectToDB
