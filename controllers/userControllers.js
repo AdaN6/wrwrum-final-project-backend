@@ -38,7 +38,7 @@ const signupUser = async (req, res) => {
     }
 }
 
-// get one user
+// --> get all user
 const getUsers = async (req, res) => {
     try{
         const users = await User.find();
@@ -49,4 +49,31 @@ const getUsers = async (req, res) => {
     }
 }
 
-module.exports = { loginUser, signupUser, getUsers };
+// --> get one user
+
+// const getUserById = async (req, res) => {
+//     try{
+//         const {id} = req.params;
+//         const userById = await User.findById(id);
+//         if (userById) return res.status(200).json(userById);
+//         res.status(404).send('User not found')
+
+//     } catch(error) {
+//         res.status(500).send(error.message)
+//     }
+// }
+
+const getUserEmail = async (req, res) => {
+    const {email} = req.params
+    try {
+        const user = await User.email(email)
+
+        res.status(200).json({user})
+
+    } catch(error) {
+        res.status(500).send(error.message)
+    }
+}
+
+
+module.exports = { loginUser, signupUser, getUsers, getUserEmail };

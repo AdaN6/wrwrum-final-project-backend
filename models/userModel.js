@@ -95,5 +95,17 @@ userSchema.statics.login = async function(email, password){
     return user
 }
 
+userSchema.statics.email= async function (email) {
+  // validation
+  
+
+  const user = await this.findOne({email})
+
+  if (!user) {
+    throw Error("User does not exist");
+  }
+  return user;
+}
+
 
 module.exports = mongoose.model("User", userSchema)
