@@ -8,6 +8,10 @@ const cors = require("cors");
 const port = process.env.PORT || 7000;
 const newsRoutes = require("./routes/newsRoute")
 
+app.use((req,res,next)=>{
+  console.log(req.path,req.method)
+  next()
+})
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
@@ -24,15 +28,17 @@ io.on("connection", (socket) => {
   console.log("c", socket.id)
   const data = ''
   socket.on('send', (message) => {
-    alert('Something came along on the "message" channel:', message);
-});
-});
+    console.log(message)
+    socket.emit('message', message)
+  });
+
 
 	io.on('send', (socket) => {
 		socket.on('hello', (message) => {
-			console.log(message); // world
+			alert(message); // world
 		});
 	});
+});
 
 
 io.on('disconnect', (socket) => {
