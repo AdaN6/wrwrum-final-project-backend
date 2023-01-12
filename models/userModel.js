@@ -36,6 +36,10 @@ const userSchema = new Schema({
   status: {
     type: Boolean,
   },
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 // --> statics signup method 
