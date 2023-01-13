@@ -95,11 +95,23 @@ userSchema.statics.login = async function(email, password){
     return user
 }
 
+// --> statics for email
+
 userSchema.statics.email= async function (email) {
   // validation
   
 
   const user = await this.findOne({email})
+
+  if (!user) {
+    throw Error("User does not exist");
+  }
+  return user;
+}
+
+// --> static for update with email
+userSchema.statics.updateEmail = async function (email) {
+  const user = await this.findOneAndUpdate({ email }, {...req.body});
 
   if (!user) {
     throw Error("User does not exist");

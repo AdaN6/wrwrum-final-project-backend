@@ -7,12 +7,13 @@ const {
   loginUser,
   signupUser,
   getUserEmail,
+  updateUser,
 } = require("../controllers/userControllers");
 
 userRouter.route("/")
 .get(getUsers)
 
-userRouter.route("/:email").get(getUserEmail).put().delete();
+userRouter.route("/:email").get(getUserEmail).put(updateUser).delete();
 
 //login
 userRouter.route("/login")
