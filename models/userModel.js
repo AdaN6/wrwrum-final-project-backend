@@ -20,6 +20,8 @@ const userSchema = new Schema({
   },
   lastName: {
     type: String,
+    default:""
+
   },
   country: {
     type: String,
@@ -29,9 +31,11 @@ const userSchema = new Schema({
   },
   favouriteTeam: {
     type: String,
+  
   },
   image: {
     type: String,
+   
   },
   status: {
     type: Boolean,
@@ -73,7 +77,7 @@ userSchema.statics.signup = async function (firstName, email, password) {
     return user;
     };
 
-// --> statics signin method 
+// --> statics login method 
 
 userSchema.statics.login = async function(email, password){
     if (!email || !password) {
@@ -86,11 +90,14 @@ userSchema.statics.login = async function(email, password){
         throw Error("Incorrect Email")
     }
 
+    console.log(password, user.password)
     const match = await bcrypt.compare(password, user.password)
+    console.log(match)
 
     if (!match){
         throw Error('Incorrect password')
     }
+
 
     return user
 }
@@ -110,13 +117,24 @@ userSchema.statics.email= async function (email) {
 }
 
 // --> static for update with email
-userSchema.statics.updateEmail = async function (email) {
-  const user = await this.findOneAndUpdate({ email }, {...req.body});
-
+userSchema.statics.updateUserbyEmail = async function (email, reqBody) {
+  const user = await this.findOne({ email });
   if (!user) {
     throw Error("User does not exist");
   }
-  return user;
+
+  const idOfUser = user._id;
+
+ const salt = await bcrypt.genSalt(10);
+ const hash = await bcrypt.hashSync(user.password, salt);
+
+
+  const findId = await this.findByIdAndUpdate(idOfUser, {...reqBody, password: hash
+  });
+
+  console.log(findId);
+
+  return findId;
 }
 
 
