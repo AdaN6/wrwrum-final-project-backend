@@ -13,7 +13,7 @@ const middlewares = [
 ];
 app.use(middlewares);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 
 // --> connect to mongo
 const connectToDB = require("./DB/mongoConnection");

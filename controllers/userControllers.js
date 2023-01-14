@@ -77,11 +77,18 @@ const getUserEmail = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
+        // console.log(req.params)
         const { email } = req.params;
 
-        const updateUser = await User.updateEmail(email, {...req.body});
+        const updateUser = await User.updateUserbyEmail (
+          email,
+          { ...req.body },
+          { new: true }
+        );
+        // const token = createToken(updateUser);
 
-        res.status(200).json({updateUser})
+
+        res.status(200).json(updateUser);
 
 
     }catch(error){
