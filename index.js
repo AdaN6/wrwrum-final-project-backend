@@ -6,6 +6,8 @@ const cors = require("cors");
 
 const userRoutes = require("./routes/usersRouter");
 
+const port = process.env.PORT || 6000;
+
 const middlewares = [
   express.urlencoded({ extended: false }),
   express.json(),
@@ -13,7 +15,14 @@ const middlewares = [
 ];
 app.use(middlewares);
 
-const port = process.env.PORT || 6000;
+app.use((_req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+
+  next();
+});
+
+
 
 // --> connect to mongo
 const connectToDB = require("./DB/mongoConnection");
