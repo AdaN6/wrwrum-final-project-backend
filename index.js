@@ -26,24 +26,29 @@ app.get('/', (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("c", socket.id)
-  const data = ''
   socket.on('send', (message) => {
-    console.log(message)
-    socket.emit('message', message)
+    // socket.emit('message', message)
+    socket.broadcast.emit('receive_message', message)
+    // console.log(message, socket.id)
   });
 
+  socket.on('join_room', (data) => {
+    socket.join(data)
+    console.log(`user with id ${socket.id} joined room: ${data}`)
+  })
+  
+  
+  io.on('disconnect', (socket) => {
+    console.log('user disconnected', socket.id)
+  })
 
-	io.on('send', (socket) => {
-		socket.on('hello', (message) => {
-			alert(message); // world
-		});
-	});
+	// io.on('send', (socket) => {
+	// 	socket.on('hello', (message) => {
+	// 		// alert(message);
+	// 	});
+	// });
 });
 
-
-io.on('disconnect', (socket) => {
-  console.log('user disconnected', socket.id)
-})
 httpServer.listen(7000, () => {
   console.log('listening on *:7000');
 });
