@@ -25,9 +25,10 @@ const loginUser = async (req, res) => {
 // --> Signup User
 
 const signupUser = async (req, res) => {
-    const { firstName, email, password } = req.body;
     
     try{
+        console.log(req.body)
+        const { firstName, email, password } = req.body;
         const user = await User.signup(firstName, email, password)
 
         const token = createToken(user._id);
@@ -41,6 +42,7 @@ const signupUser = async (req, res) => {
 // --> get all user
 const getUsers = async (req, res) => {
     try{
+        // only server an user back after running a token verification middleware!
         const users = await User.find();
         res.json(users)
 
@@ -64,12 +66,12 @@ const getUsers = async (req, res) => {
 // }
 
 const getUserEmail = async (req, res) => {
-    const {email} = req.params
     try {
-        const user = await User.email(email)
-
-        res.status(200).json({user})
-
+        const findUser = await User.findById(req.userId)
+        // const user = await User.email(email)
+        
+        res.status(200).json({ findUser });
+        
     } catch(error) {
         res.status(500).send(error.message)
     }

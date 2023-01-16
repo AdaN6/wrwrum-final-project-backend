@@ -1,5 +1,7 @@
 const express = require('express');
 
+const verifyToken = require("../middlewares/verifyToken")
+
 const userRouter = express.Router();
 
 const {
@@ -10,10 +12,13 @@ const {
   updateUser,
 } = require("../controllers/userControllers");
 
-userRouter.route("/")
-.get(getUsers)
+userRouter.route("/").get(getUsers);
 
-userRouter.route("/:email").get(getUserEmail).put(updateUser).delete();
+userRouter
+  .route("/auth")
+  .post(verifyToken, getUserEmail)
+  .put(verifyToken, updateUser)
+  .delete();
 
 //login
 userRouter.route("/login")

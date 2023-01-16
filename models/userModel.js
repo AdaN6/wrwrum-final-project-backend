@@ -96,6 +96,7 @@ userSchema.statics.login = async function (email, password) {
       throw Error("Incorrect password");
     }
 
+    // instead of returning the user, return a token, with the user's id in the payload ONLY
     return user;
   } catch (error) {
     console.log(error);
