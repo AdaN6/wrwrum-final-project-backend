@@ -134,7 +134,7 @@ userSchema.statics.updateUserbyId = async function (_id, reqBody, configs) {
       configs
     );
 
-    // console.log(findId);
+    console.log(findId);
 
     return findId;
   } catch (error) {

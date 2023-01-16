@@ -9,10 +9,15 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).json({ error: "Authorization token required" });
   }
 
-  const token = authorization.split(" ")[1];
+    const token = req.headers.authorization;
+
+//   const token = authorization.split(" ")[1];
+  if (!token) return res.status(400).send("No token sent");
 
   try {
     const { _id } = jwt.verify(token, process.env.SECRET);
+    if (!_id) return res.status(403).send("Invalid token");
+
 
     req.user = _id
  
