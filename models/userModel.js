@@ -13,6 +13,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false
   },
   firstName: {
     type: String,
@@ -80,26 +81,29 @@ userSchema.statics.signup = async function (firstName, email, password) {
 // --> statics login method 
 
 userSchema.statics.login = async function(email, password){
+  try {
     if (!email || !password) {
         throw Error("All fields must be filled");
     }
 
-    const user = await this.findOne({email});
+    const user = await this.findOne({email}).select('+password');
+    // console.log(user)
 
     if (!user) {
         throw Error("Incorrect Email")
     }
 
-    console.log(password, user.password)
+    // console.log(password, user.password)
     const match = await bcrypt.compare(password, user.password)
-    console.log(match)
 
     if (!match){
         throw Error('Incorrect password')
     }
 
-
-    return user
+    return user }
+  catch(error) {
+      console.log(error)
+    }
 }
 
 // --> statics for email
@@ -117,24 +121,25 @@ userSchema.statics.email= async function (email) {
 }
 
 // --> static for update with email
-userSchema.statics.updateUserbyEmail = async function (email, reqBody) {
-  const user = await this.findOne({ email });
-  if (!user) {
-    throw Error("User does not exist");
+userSchema.statics.updateUserbyId = async function ( _id, reqBody, configs) {
+  try { 
+    const user = await this.findById( _id );
+      if (!user) {
+        throw Error("User does not exist");
+      }
+
+     const salt = await bcrypt.genSalt(10);
+     const hash = bcrypt.hashSync(user.password, salt);
+
+    // console.log(reqBody.password)
+      const findId = await this.findByIdAndUpdate( _id , {...reqBody, password: hash}, configs);
+
+      // console.log(findId);
+
+      return findId;}
+      catch(error) {
+        console.log(error)
   }
-
-  const idOfUser = user._id;
-
- const salt = await bcrypt.genSalt(10);
- const hash = await bcrypt.hashSync(user.password, salt);
-
-
-  const findId = await this.findByIdAndUpdate(idOfUser, {...reqBody, password: hash
-  });
-
-  console.log(findId);
-
-  return findId;
 }
 
 
