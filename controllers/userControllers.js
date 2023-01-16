@@ -79,7 +79,7 @@ const getUserEmail = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        // console.log(req.params)
+        console.log(req.params)
         const { email} = req.params;
 
         const updateUser = await User.updateUserbyId (
