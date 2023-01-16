@@ -26,16 +26,16 @@ app.get('/', (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("c", socket.id)
-  socket.on('send', (message) => {
+  socket.on('send', (message, userName, timestamp) => {
     // socket.emit('message', message)
-    socket.broadcast.emit('receive_message', message)
+    socket.broadcast.emit('receive_message', {message, userName, timestamp})
     // console.log(message, socket.id)
   });
 
-  socket.on('join_room', (data) => {
-    socket.join(data)
-    console.log(`user with id ${socket.id} joined room: ${data}`)
-  })
+  // socket.on('join_room', (data) => {
+  //   socket.join(data)
+  //   console.log(`user with id ${socket.id} joined room: ${data}`)
+  // })
   
   
   io.on('disconnect', (socket) => {
