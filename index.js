@@ -5,7 +5,6 @@ const http = require('http');
 const httpServer = http.createServer(app);
 const { Server } = require("socket.io");
 const cors = require("cors");
-const newsRoutes = require("./routes/newsRoute")
 
 const userRoutes = require("./routes/usersRouter");
 
