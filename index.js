@@ -5,7 +5,6 @@ const http = require('http');
 const httpServer = http.createServer(app);
 const { Server } = require("socket.io");
 const cors = require("cors");
-
 const userRoutes = require("./routes/usersRouter");
 
 const port = process.env.PORT || 6000;
@@ -39,7 +38,7 @@ app.use((req,res,next)=>{
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.REACT_APP_FRONTEND
+    origin: 'http://localhost:3000'
   }
 });
 app.use("/news", newsRoutes);
@@ -63,4 +62,5 @@ io.on("connection", (socket) => {
 httpServer.listen(7000, () => {
   console.log(`listening on port ${port}`);
 });
+
 app.listen(port, () => console.log(`Server started on port ${port}`));
