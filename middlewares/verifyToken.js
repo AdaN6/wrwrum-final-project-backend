@@ -3,9 +3,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = async (req, res, next) => {
     try {
   // veryfy authentication
-    console.log(req.headers)
     const { authorization } = req.headers;
-    console.log(authorization)
     if (!authorization) {
       return res.status(401).json({ error: "Authorization token required" });
     }
@@ -21,7 +19,6 @@ const verifyToken = async (req, res, next) => {
     // if (!token) return res.status(400).send("No token sent");
 
     const { _id } = jwt.verify(authorization, process.env.SECRET);
-    console.log(_id);
     if (!_id) return res.status(403).send("Invalid token");
 
     req.userId = _id;
