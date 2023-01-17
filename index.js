@@ -15,7 +15,7 @@ app.use((req,res,next)=>{
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.REACT_APP_FRONTEND
+    origin: 'http://localhost:3000'
   }
 });
 app.use("/news", newsRoutes);
