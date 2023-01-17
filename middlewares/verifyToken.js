@@ -11,10 +11,10 @@ const verifyToken = async (req, res, next) => {
 
 //   console.log(authorization)
 
-    const token = req.headers.authorization;
+    // const token = req.headers.authorization;
 
     // ---> split the Bearer and get only the token
-//   const token = authorization.split(" ")[1];
+    const token = authorization.split(" ")[1];
 
 //   console.log(token)
   if (!token) return res.status(400).send("No token sent");
