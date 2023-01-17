@@ -65,25 +65,25 @@ const getUsers = async (req, res) => {
 //     }
 // }
 
-const getUserEmail = async (req, res) => {
-    try {
-        const findUser = await User.findById(req.userId)
-        // const user = await User.email(email)
-        
-        res.status(200).json({ findUser });
-        
-    } catch(error) {
-        res.status(500).send(error.message)
-    }
-}
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    // const findUser = await User.findById(id)
+    // const user = await User.email(email)
+    // console.log(user)
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 const updateUser = async (req, res) => {
     try {
-        console.log(req.params)
-        const { email} = req.params;
+        // console.log(req.params)
+        // const { email} = req.params;
 
         const updateUser = await User.updateUserbyId (
-          email,
+          req.userId,
           { ...req.body },
           { new: true }
         );
@@ -97,4 +97,4 @@ const updateUser = async (req, res) => {
 }
 
 
-module.exports = { loginUser, signupUser, getUsers, getUserEmail, updateUser };
+module.exports = { loginUser, signupUser, getUsers, getUserById, updateUser };

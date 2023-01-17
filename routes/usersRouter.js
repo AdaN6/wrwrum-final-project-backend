@@ -8,7 +8,7 @@ const {
   getUsers,
   loginUser,
   signupUser,
-  getUserEmail,
+  getUserById,
   updateUser,
 } = require("../controllers/userControllers");
 
@@ -16,7 +16,7 @@ userRouter.route("/").get(getUsers);
 
 userRouter
   .route("/auth")
-  .post(verifyToken, getUserEmail)
+  .post(verifyToken, getUserById)
   .put(verifyToken, updateUser)
   .delete();
 
