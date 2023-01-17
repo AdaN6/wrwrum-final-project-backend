@@ -7,7 +7,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const userRoutes = require("./routes/usersRouter");
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 7000;
 
 const middlewares = [
   express.urlencoded({ extended: false }),
@@ -38,7 +38,7 @@ app.use((req,res,next)=>{
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3000'
+    origin: process.env.REACT_APP_FRONTEND
   }
 });
 app.use("/news", newsRoutes);
@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
   })
 });
 
-httpServer.listen(7000, () => {
+httpServer.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
