@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = async (req, res, next) => {
     try {
   // veryfy authentication
+    console.log(req.headers)
     const { authorization } = req.headers;
     console.log(authorization)
     if (!authorization) {
