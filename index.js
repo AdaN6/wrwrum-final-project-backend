@@ -15,7 +15,7 @@ app.use((req,res,next)=>{
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000"
+    origin: process.env.REACT_APP_FRONTEND
   }
 });
 app.use("/news", newsRoutes);
@@ -26,9 +26,9 @@ app.get('/', (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("c", socket.id)
-  socket.on('send', (message, userName, timestamp) => {
+  socket.on('send', (message, userName, timestamp, colorMe, colorOther) => {
     // socket.emit('message', message)
-    socket.broadcast.emit('receive_message', {message, userName, timestamp})
+    socket.broadcast.emit('receive_message', {message, userName, timestamp, colorMe, colorOther})
     // console.log(message, socket.id)
   });
 
@@ -50,5 +50,5 @@ io.on("connection", (socket) => {
 });
 
 httpServer.listen(7000, () => {
-  console.log('listening on *:7000');
+  console.log(`listening on port ${port}`);
 });
