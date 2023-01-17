@@ -1,11 +1,17 @@
 require("dotenv").config();
+const cors = require("cors");
+app.use(cors());
+const port = process.env.PORT || 6000;
+
+//connect to mongo
+const connectToDB = require("./DB/mongoConnection");
+connectToDB();
 const express = require('express');
 const app = express();
 const http = require('http');
 const httpServer = http.createServer(app);
 const { Server } = require("socket.io");
-const cors = require("cors");
-const port = process.env.PORT || 7000;
+
 const newsRoutes = require("./routes/newsRoute")
 
 app.use((req,res,next)=>{
