@@ -38,7 +38,7 @@ app.use((req,res,next)=>{
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.REACT_APP_FRONTEND
+    origin: process.env.FRONTEND
   }
 });
 app.use("/news", newsRoutes);
