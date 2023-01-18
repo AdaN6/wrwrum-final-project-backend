@@ -5,7 +5,6 @@ const http = require('http');
 const httpServer = http.createServer(app);
 const { Server } = require("socket.io");
 const cors = require("cors");
-const userRoutes = require("./routes/usersRouter");
 
 const port = process.env.PORT || 7000;
 
@@ -19,7 +18,7 @@ app.use(middlewares);
 app.use((_req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
-
+  
   next();
 });
 
@@ -28,6 +27,7 @@ const connectToDB = require("./DB/mongoConnection");
 connectToDB();
 
 const newsRoutes = require("./routes/newsRoute");
+const userRoutes = require("./routes/usersRouter");
 app.use("/news", newsRoutes);
 app.use("/api/user", userRoutes);
 
@@ -38,7 +38,7 @@ app.use((req,res,next)=>{
 app.use(cors());
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.REACT_APP_FRONTEND
+    origin: process.env.FRONTEND
   }
 });
 app.use("/news", newsRoutes);
