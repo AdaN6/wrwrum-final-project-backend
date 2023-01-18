@@ -36,11 +36,14 @@ app.use((req,res,next)=>{
   next()
 })
 app.use(cors());
+
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.REACT_APP_FRONTEND
+    // origin: process.env.FRONTEND
+    origin: "*"
   }
 });
+
 app.use("/news", newsRoutes);
 
 app.get('/', (req, res) => {
@@ -63,4 +66,4 @@ httpServer.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+// app.listen(port, () => console.log(`Server started on port ${port}`));
