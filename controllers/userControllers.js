@@ -22,9 +22,7 @@ const loginUser = async (req, res) => {
           token: token
         });
     } catch(error) {
-        res.status(400).json({
-            type:"error",
-            message: error.message})
+        res.status(400).json({ error: error.message });
     }
 }
 
